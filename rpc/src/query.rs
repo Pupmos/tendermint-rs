@@ -565,8 +565,8 @@ impl From<u8> for Operand {
     }
 }
 
-impl From<usize> for Operand {
-    fn from(source: usize) -> Self {
+impl From<u32> for Operand {
+    fn from(source: u32) -> Self {
         Operand::Unsigned(source as u64)
     }
 }

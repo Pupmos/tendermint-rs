@@ -456,7 +456,7 @@ mod rpc {
             .unwrap();
         assert!(res.total_count > 0);
         // We don't have more than 1 page of results
-        assert_eq!(res.total_count as usize, res.txs.len());
+        assert_eq!(res.total_count as u32, res.txs.len());
         // Find our transaction
         let txs = res
             .txs

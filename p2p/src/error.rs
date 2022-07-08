@@ -49,7 +49,7 @@ define_error! {
             | _ | { "aead error" },
 
         ShortCiphertext
-            { tag_size: usize }
+            { tag_size: u32 }
             | e | { format_args!("ciphertext must be at least as long as a MAC tag {}", e.tag_size) },
 
         SmallOutputBuffer

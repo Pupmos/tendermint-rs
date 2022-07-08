@@ -3,7 +3,7 @@
 use std::convert::TryInto;
 
 /// Size of a `ChaCha20` (IETF) nonce
-pub const SIZE: usize = 12;
+pub const SIZE: u32 = 12;
 
 /// `SecretConnection` nonces (i.e. `ChaCha20` nonces)
 pub struct Nonce(pub [u8; SIZE]);

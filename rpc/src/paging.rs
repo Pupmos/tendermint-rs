@@ -24,15 +24,15 @@ pub enum Paging {
 
 /// A page number in paginated RPC responses.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, Eq, PartialEq, PartialOrd, Ord)]
-pub struct PageNumber(usize);
+pub struct PageNumber(u32);
 
 impl FromStr for PageNumber {
     type Err = Error;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let raw = i64::from_str(s).map_err(Error::parse_int)?;
-        let raw_usize: usize = raw.try_into().map_err(Error::out_of_range)?;
-        Ok(raw_usize.into())
+        let raw_u32: u32 = raw.try_into().map_err(Error::out_of_range)?;
+        Ok(raw_u32.into())
     }
 }
 
@@ -42,8 +42,8 @@ impl core::fmt::Display for PageNumber {
     }
 }
 
-impl From<usize> for PageNumber {
-    fn from(value: usize) -> Self {
+impl From<u32> for PageNumber {
+    fn from(value: u32) -> Self {
         Self(value)
     }
 }

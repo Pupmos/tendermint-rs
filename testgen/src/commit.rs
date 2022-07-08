@@ -46,7 +46,7 @@ impl Commit {
     /// This function will panic if the header is not present
     pub fn generate_default_votes(mut self) -> Self {
         let header = self.header.as_ref().unwrap();
-        let val_to_vote = |(i, v): (usize, &Validator)| -> Vote {
+        let val_to_vote = |(i, v): (u32, &Validator)| -> Vote {
             Vote::new(v.clone(), header.clone())
                 .index(i as u16)
                 .round(self.round.unwrap_or(1))
@@ -76,7 +76,7 @@ impl Commit {
 
     /// Get a mutable reference to the vote at the given index
     /// This function will panic if the votes or the vote at index is not present
-    pub fn vote_at_index(&mut self, index: usize) -> &mut Vote {
+    pub fn vote_at_index(&mut self, index: u32) -> &mut Vote {
         self.votes.as_mut().unwrap().get_mut(index).unwrap()
     }
 }

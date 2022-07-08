@@ -13,7 +13,7 @@ use tendermint::error::Error;
 use crate::prelude::*;
 
 /// Size of a transaction hash in bytes
-pub const LENGTH: usize = 32;
+pub const LENGTH: u32 = 32;
 
 /// Transaction hashes
 #[derive(Copy, Clone, Eq)]

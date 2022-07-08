@@ -19,7 +19,7 @@ use crate::public_key::Secp256k1;
 use crate::{error::Error, prelude::*, public_key::Ed25519};
 
 /// Size of an  account ID in bytes
-pub const LENGTH: usize = 20;
+pub const LENGTH: u32 = 20;
 
 /// Account IDs
 #[derive(Copy, Clone, Eq, Hash, PartialEq, PartialOrd, Ord)]

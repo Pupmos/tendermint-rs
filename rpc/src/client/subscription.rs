@@ -53,8 +53,8 @@ pub(crate) type SubscriptionRx = ChannelRx<Result<Event, Error>>;
 /// use futures::StreamExt;
 ///
 /// /// Prints `count` events from the given subscription.
-/// async fn print_events(subs: &mut Subscription, count: usize) {
-///     let mut counter = 0_usize;
+/// async fn print_events(subs: &mut Subscription, count: u32) {
+///     let mut counter = 0_u32;
 ///     while let Some(res) = subs.next().await {
 ///         // Technically, a subscription produces `Result<Event, Error>`
 ///         // instances. Errors can be produced by the remote endpoint at any

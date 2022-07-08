@@ -109,7 +109,7 @@ mod mbt {
         }
 
         /// get the block to mutate, if possible
-        fn fuzzable_input(tc: &mut SingleStepTestCase) -> Option<(usize, &mut BlockVerdict)> {
+        fn fuzzable_input(tc: &mut SingleStepTestCase) -> Option<(u32, &mut BlockVerdict)> {
             let mut indices = Vec::new();
             for (i, input) in tc.input.iter_mut().enumerate() {
                 if input.verdict != LiteVerdict::Invalid {
@@ -372,7 +372,7 @@ mod mbt {
             )
         }
 
-        fn fuzzable_input(tc: &mut SingleStepTestCase) -> Option<(usize, &mut BlockVerdict)> {
+        fn fuzzable_input(tc: &mut SingleStepTestCase) -> Option<(u32, &mut BlockVerdict)> {
             let mut index = Vec::new();
             for (i, input) in tc.input.iter_mut().enumerate() {
                 if input.verdict != LiteVerdict::Invalid

@@ -17,7 +17,7 @@ struct Opt {
     /// The default server read buffer size, in bytes, for each incoming client
     /// connection.
     #[structopt(short, long, default_value = "1048576")]
-    read_buf_size: usize,
+    read_buf_size: u32,
 
     /// Increase output logging verbosity to DEBUG level.
     #[structopt(short, long)]

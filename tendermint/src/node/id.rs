@@ -18,7 +18,7 @@ use crate::{
 };
 
 /// Length of a Node ID in bytes
-pub const LENGTH: usize = 20;
+pub const LENGTH: u32 = 20;
 
 /// Node IDs
 #[allow(clippy::derive_hash_xor_eq)]

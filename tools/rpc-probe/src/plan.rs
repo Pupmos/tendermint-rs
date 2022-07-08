@@ -16,7 +16,7 @@ pub const DEFAULT_SUBSCRIPTION_MAX_TIME: u64 = 60;
 
 /// If not specified, the maximum number of events to capture for a
 /// subscription prior to terminating successfully.
-pub const DEFAULT_SUBSCRIPTION_MAX_EVENTS: usize = 5;
+pub const DEFAULT_SUBSCRIPTION_MAX_EVENTS: u32 = 5;
 
 #[derive(Debug, Clone)]
 struct PlanConfig {
@@ -219,7 +219,7 @@ impl From<PlannedSubscription> for Interaction {
 pub struct PlannedSubscription {
     subscription: Subscription,
     max_time: Duration,
-    max_events: usize,
+    max_events: u32,
 }
 
 impl PlannedSubscription {
@@ -238,7 +238,7 @@ impl PlannedSubscription {
     }
 
     #[allow(dead_code)]
-    pub fn with_max_events(mut self, max_events: usize) -> Self {
+    pub fn with_max_events(mut self, max_events: u32) -> Self {
         self.max_events = max_events;
         self
     }
@@ -419,7 +419,7 @@ async fn execute_subscription(
     let timeout = tokio::time::sleep(subs.max_time);
     tokio::pin!(timeout);
 
-    let mut event_count = 0_usize;
+    let mut event_count = 0_u32;
     loop {
         tokio::select! {
             _ = &mut timeout => {

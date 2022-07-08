@@ -155,8 +155,8 @@ mod tests {
             .collect::<Vec<_>>();
 
         // we have as many blocks as the height of the chain
-        assert_eq!(blocks.len(), chain.info.height.value() as usize);
-        assert_eq!(blocks.len(), CHAIN_HEIGHT as usize);
+        assert_eq!(blocks.len(), chain.info.height.value() as u32);
+        assert_eq!(blocks.len(), CHAIN_HEIGHT as u32);
 
         let first_block = blocks.first().unwrap();
         let last_block = blocks.last().unwrap();

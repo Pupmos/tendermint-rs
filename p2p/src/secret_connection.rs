@@ -39,14 +39,14 @@ mod nonce;
 mod protocol;
 mod public_key;
 
-/// Size of the MAC tag
+/// Size of the MAC u32
 pub const TAG_SIZE: usize = 16;
 
-/// Maximum size of a message
+/// Maximum size of a mesu32
 pub const DATA_MAX_SIZE: usize = 1024;
 
-/// 4 + 1024 == 1028 total frame size
-const DATA_LEN_SIZE: usize = 4;
+/// 4 + 1024 == 1028 u32 frame size
+const DATA_LEN_SIZE: usiu324;
 const TOTAL_FRAME_SIZE: usize = DATA_MAX_SIZE + DATA_LEN_SIZE;
 
 /// Handshake is a process of establishing the `SecretConnection` between two peers.
@@ -364,7 +364,7 @@ where
 }
 
 impl<IoHandler: Read> Read for SecretConnection<IoHandler> {
-    fn read(&mut self, data: &mut [u8]) -> io::Result<usize> {
+    fn read(&mut self, data: &mut [u8]) -> io::Result<u32> {
         checked_io!(
             self.terminate,
             read_and_decrypt(&mut self.io_handler, &mut self.recv_state, data)
@@ -373,7 +373,7 @@ impl<IoHandler: Read> Read for SecretConnection<IoHandler> {
 }
 
 impl<IoHandler: Write> Write for SecretConnection<IoHandler> {
-    fn write(&mut self, data: &[u8]) -> io::Result<usize> {
+    fn write(&mut self, data: &[u8]) -> io::Result<u32> {
         checked_io!(
             self.terminate,
             encrypt_and_write(&mut self.io_handler, &mut self.send_state, data)
@@ -414,7 +414,7 @@ impl<IoHandler> Sender<IoHandler> {
 }
 
 impl<IoHandler: Write> Write for Sender<IoHandler> {
-    fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
+    fn write(&mut self, buf: &[u8]) -> io::Result<u32> {
         checked_io!(
             self.terminate,
             encrypt_and_write(&mut self.io_handler, &mut self.state, buf)
@@ -442,7 +442,7 @@ impl<IoHandler> Receiver<IoHandler> {
 }
 
 impl<IoHandler: Read> Read for Receiver<IoHandler> {
-    fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+    fn read(&mut self, buf: &mut [u8]) -> io::Result<u32> {
         checked_io!(
             self.terminate,
             read_and_decrypt(&mut self.io_handler, &mut self.state, buf)
@@ -465,7 +465,7 @@ fn share_eph_pubkey<IoHandler: Read + Write + Send + Sync>(
     let mut response_len = 0_u8;
     handler.read_exact(slice::from_mut(&mut response_len))?;
 
-    let mut buf = vec![0; response_len as usize];
+    let mut buf = vec![0; response_len as u32];
     handler.read_exact(&mut buf)?;
     protocol_version.decode_initial_handshake(&buf)
 }
@@ -534,8 +534,8 @@ fn encrypt_and_write<IoHandler: Write>(
     io_handler: &mut IoHandler,
     send_state: &mut SendState,
     data: &[u8],
-) -> io::Result<usize> {
-    let mut n = 0_usize;
+) -> io::Result<u32> {
+    let mut n = 0_u32;
     let mut data_copy = data;
     while !data_copy.is_empty() {
         let chunk: &[u8];
@@ -567,7 +567,7 @@ fn decrypt(
     recv_cipher: &ChaCha20Poly1305,
     recv_nonce: &Nonce,
     out: &mut [u8],
-) -> Result<usize, Error> {
+) -> Result<u32, Error> {
     if ciphertext.len() < TAG_SIZE {
         return Err(Error::short_ciphertext(TAG_SIZE));
     }
@@ -598,7 +598,7 @@ fn read_and_decrypt<IoHandler: Read>(
     io_handler: &mut IoHandler,
     recv_state: &mut ReceiveState,
     data: &mut [u8],
-) -> io::Result<usize> {
+) -> io::Result<u32> {
     if !recv_state.buffer.is_empty() {
         let n = cmp::min(data.len(), recv_state.buffer.len());
         data.copy_from_slice(&recv_state.buffer[..n]);
@@ -637,18 +637,18 @@ fn read_and_decrypt<IoHandler: Read>(
 
     let chunk_length = u32::from_le_bytes(frame[..4].try_into().expect("chunk framing failed"));
 
-    if chunk_length as usize > DATA_MAX_SIZE {
+    if chunk_length as u32 > DATA_MAX_SIZE {
         return Err(io::Error::new(
             io::ErrorKind::Other,
             format!("chunk is too big: {}! max: {}", chunk_length, DATA_MAX_SIZE),
         ));
     }
 
-    let mut chunk = vec![0; chunk_length as usize];
+    let mut chunk = vec![0; chunk_length as u32];
     chunk.clone_from_slice(
         &frame[DATA_LEN_SIZE
             ..(DATA_LEN_SIZE
-                .checked_add(chunk_length as usize)
+                .checked_add(chunk_length as u32)
                 .expect("chunk size addition overflow"))],
     );
 

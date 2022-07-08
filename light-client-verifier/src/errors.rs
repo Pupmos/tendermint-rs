@@ -137,8 +137,8 @@ define_error! {
 
         MismatchPreCommitLength
             {
-                pre_commit_length: usize,
-                validator_length: usize,
+                pre_commit_length: u32,
+                validator_length: u32,
             }
             | e | {
                 format_args!(

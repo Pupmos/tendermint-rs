@@ -41,22 +41,22 @@ impl From<ValidatorIndex> for u32 {
     }
 }
 
-impl TryFrom<usize> for ValidatorIndex {
+impl TryFrom<u32> for ValidatorIndex {
     type Error = Error;
 
-    fn try_from(value: usize) -> Result<Self, Self::Error> {
+    fn try_from(value: u32) -> Result<Self, Self::Error> {
         Ok(ValidatorIndex(
             value.try_into().map_err(Error::integer_overflow)?,
         ))
     }
 }
 
-impl From<ValidatorIndex> for usize {
+impl From<ValidatorIndex> for u32 {
     fn from(value: ValidatorIndex) -> Self {
         value
             .value()
             .try_into()
-            .expect("Integer overflow: system usize maximum smaller than i32 maximum")
+            .expect("Integer overflow: system u32 maximum smaller than i32 maximum")
     }
 }
 

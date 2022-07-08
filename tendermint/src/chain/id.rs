@@ -17,7 +17,7 @@ use crate::{error::Error, prelude::*};
 /// Maximum length of a `chain::Id` name. Matches `MaxChainIDLen` from:
 /// <https://github.com/tendermint/tendermint/blob/develop/types/genesis.go>
 // TODO: update this when `chain::Id` is derived from a digest output
-pub const MAX_LENGTH: usize = 50;
+pub const MAX_LENGTH: u32 = 50;
 
 /// Chain identifier (e.g. 'gaia-9000')
 #[derive(Clone)]

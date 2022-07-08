@@ -13,7 +13,7 @@ use tendermint_proto::Protobuf;
 use crate::{error::Error, prelude::*};
 
 /// Output size for the SHA-256 hash function
-pub const SHA256_HASH_SIZE: usize = 32;
+pub const SHA256_HASH_SIZE: u32 = 32;
 
 /// Hash algorithms
 #[derive(Copy, Clone, Debug, Eq, Hash, PartialEq)]

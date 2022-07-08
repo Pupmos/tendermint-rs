@@ -11,7 +11,7 @@ use super::amino_types;
 use crate::error::Error;
 
 /// Size of an X25519 or Ed25519 public key
-const PUBLIC_KEY_SIZE: usize = 32;
+const PUBLIC_KEY_SIZE: u32 = 32;
 
 /// Protocol version (based on the Tendermint version)
 #[derive(Copy, Clone, Debug, Eq, PartialEq, PartialOrd, Ord)]
@@ -136,7 +136,7 @@ impl Version {
 
     /// Get the length of the auth message response for this protocol version
     #[must_use]
-    pub const fn auth_sig_msg_response_len(self) -> usize {
+    pub const fn auth_sig_msg_response_len(self) -> u32 {
         if self.is_protobuf() {
             // 32 + 64 + (proto overhead = 1 prefix + 2 fields + 2 lengths + total length)
             103

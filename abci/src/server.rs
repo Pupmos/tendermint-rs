@@ -11,11 +11,11 @@ use crate::{application::RequestDispatcher, codec::ServerCodec, error::Error, Ap
 
 /// The size of the read buffer for each incoming connection to the ABCI
 /// server (1MB).
-pub const DEFAULT_SERVER_READ_BUF_SIZE: usize = 1024 * 1024;
+pub const DEFAULT_SERVER_READ_BUF_SIZE: u32 = 1024 * 1024;
 
 /// Allows us to configure and construct an ABCI server.
 pub struct ServerBuilder {
-    read_buf_size: usize,
+    read_buf_size: u32,
 }
 
 impl ServerBuilder {
@@ -24,7 +24,7 @@ impl ServerBuilder {
     /// Allows you to specify the read buffer size used when reading chunks of
     /// incoming data from the client. This needs to be tuned for your
     /// application.
-    pub fn new(read_buf_size: usize) -> Self {
+    pub fn new(read_buf_size: u32) -> Self {
         Self { read_buf_size }
     }
 
@@ -68,7 +68,7 @@ pub struct Server<App> {
     app: App,
     listener: TcpListener,
     local_addr: String,
-    read_buf_size: usize,
+    read_buf_size: u32,
 }
 
 impl<App: Application> Server<App> {
@@ -93,7 +93,7 @@ impl<App: Application> Server<App> {
         let _ = thread::spawn(move || Self::handle_client(stream, addr, app, read_buf_size));
     }
 
-    fn handle_client(stream: TcpStream, addr: String, app: App, read_buf_size: usize) {
+    fn handle_client(stream: TcpStream, addr: String, app: App, read_buf_size: u32) {
         let mut codec = ServerCodec::new(stream, read_buf_size);
         info!("Listening for incoming requests from {}", addr);
         loop {

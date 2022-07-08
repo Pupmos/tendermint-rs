@@ -7,7 +7,7 @@ use sha2::{Digest, Sha256};
 use crate::prelude::*;
 
 /// Size of Merkle root hash
-pub const HASH_SIZE: usize = 32;
+pub const HASH_SIZE: u32 = 32;
 
 /// Hash is the output of the cryptographic digest function
 pub type Hash = [u8; HASH_SIZE];
@@ -35,7 +35,7 @@ fn simple_hash_from_byte_slices_inner(byte_slices: &[Vec<u8>]) -> Hash {
 }
 
 // returns the largest power of 2 less than length
-fn get_split_point(length: usize) -> usize {
+fn get_split_point(length: u32) -> u32 {
     match length {
         0 => panic!("tree is empty!"),
         1 => panic!("tree has only one element!"),

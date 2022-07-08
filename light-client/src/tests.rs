@@ -58,7 +58,7 @@ pub struct LightClientTest<LB> {
     pub height_to_verify: HeightStr,
     pub now: Time,
     pub expected_output: Option<String>,
-    pub expected_num_of_bisections: usize,
+    pub expected_num_of_bisections: u32,
 }
 
 #[derive(Deserialize, Clone, Debug)]

@@ -181,7 +181,7 @@ where
     /// counterpart Protobuf data structure.
     ///
     /// [`prost::Message::encoded_len`]: https://docs.rs/prost/*/prost/trait.Message.html#method.encoded_len
-    fn encoded_len(&self) -> usize {
+    fn encoded_len(&self) -> u32 {
         T::from(self.clone()).encoded_len()
     }
 

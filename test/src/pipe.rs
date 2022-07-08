@@ -28,13 +28,13 @@ use std::{
 use flume::{self, Receiver, SendError, Sender, TrySendError};
 
 // value for libstd
-const DEFAULT_BUF_SIZE: usize = 8 * 1024;
+const DEFAULT_BUF_SIZE: u32 = 8 * 1024;
 
 /// The `Read` end of a pipe (see `pipe()`)
 pub struct Reader {
     receiver: Receiver<Vec<u8>>,
     buffer: Vec<u8>,
-    position: usize,
+    position: u32,
 }
 
 /// The `Write` end of a pipe (see `pipe()`) that will buffer small writes before sending
@@ -42,7 +42,7 @@ pub struct Reader {
 pub struct BufWriter {
     sender: Option<Sender<Vec<u8>>>,
     buffer: Vec<u8>,
-    size: usize,
+    size: u32,
 }
 
 /// Creates an asynchronous memory pipe with buffered writer
@@ -104,14 +104,14 @@ impl BufRead for Reader {
         Ok(&self.buffer[self.position..])
     }
 
-    fn consume(&mut self, amt: usize) {
+    fn consume(&mut self, amt: u32) {
         debug_assert!(self.buffer.len() - self.position >= amt);
         self.position += amt
     }
 }
 
 impl Read for Reader {
-    fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+    fn read(&mut self, buf: &mut [u8]) -> io::Result<u32> {
         if buf.is_empty() {
             return Ok(0);
         }
@@ -128,7 +128,7 @@ impl Read for Reader {
 }
 
 impl Write for BufWriter {
-    fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
+    fn write(&mut self, buf: &[u8]) -> io::Result<u32> {
         let buffer_len = self.buffer.len();
         let bytes_written = if buf.len() > self.size {
             // bypass buffering for big writes

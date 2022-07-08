@@ -8,7 +8,7 @@ use zeroize::Zeroizing;
 
 use crate::{prelude::*, public_key::PublicKey};
 
-pub const ED25519_KEYPAIR_SIZE: usize = 64;
+pub const ED25519_KEYPAIR_SIZE: u32 = 64;
 
 /// Private keys as parsed from configuration files
 #[derive(Serialize, Deserialize, Clone)]

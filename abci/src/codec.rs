@@ -17,7 +17,7 @@ use crate::error::Error;
 
 /// The maximum number of bytes we expect in a varint. We use this to check if
 /// we're encountering a decoding error for a varint.
-pub const MAX_VARINT_LENGTH: usize = 16;
+pub const MAX_VARINT_LENGTH: u32 = 16;
 
 /// The server receives incoming requests, and sends outgoing responses.
 pub type ServerCodec<S> = Codec<S, Request, Response>;
@@ -46,7 +46,7 @@ where
     O: Message,
 {
     /// Constructor.
-    pub fn new(stream: S, read_buf_size: usize) -> Self {
+    pub fn new(stream: S, read_buf_size: u32) -> Self {
         Self {
             stream,
             read_buf: BytesMut::new(),
@@ -156,9 +156,9 @@ where
         let delim_len = src_len - tmp.remaining();
         // We only advance the source buffer once we're sure we have enough
         // data to try to decode the result.
-        src.advance(delim_len + (encoded_len as usize));
+        src.advance(delim_len + (encoded_len as u32));
 
-        let mut result_bytes = BytesMut::from(tmp.split_to(encoded_len as usize).as_ref());
+        let mut result_bytes = BytesMut::from(tmp.split_to(encoded_len as u32).as_ref());
         let res = M::decode(&mut result_bytes).map_err(Error::decode)?;
 
         Ok(Some(res))

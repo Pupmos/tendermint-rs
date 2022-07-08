@@ -180,7 +180,7 @@ enum ClientRequest {
         all: bool,
         /// The page of validators to retrieve.
         #[structopt(long)]
-        page: Option<usize>,
+        page: Option<u32>,
         /// The number of validators to retrieve per page.
         #[structopt(long)]
         per_page: Option<u8>,

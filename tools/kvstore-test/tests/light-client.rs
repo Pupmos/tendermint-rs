@@ -100,7 +100,7 @@ async fn forward() -> Result<(), Error> {
     let handle = supervisor.handle();
     tokio::spawn(supervisor.run());
 
-    let max_iterations: usize = 10;
+    let max_iterations: u32 = 10;
 
     for i in 1..=max_iterations {
         println!("[info ] - iteration {}/{}", i, max_iterations);
@@ -128,7 +128,7 @@ async fn backward() -> Result<(), Error> {
     let handle = supervisor.handle();
     tokio::spawn(supervisor.run());
 
-    let max_iterations: usize = 10;
+    let max_iterations: u32 = 10;
 
     // Sleep a little bit to ensure we have a few blocks already
     tokio::time::sleep(Duration::from_secs(2)).await;

@@ -192,7 +192,7 @@ pub trait Client {
                 .await
             },
             Paging::All => {
-                let mut page_num = 1_usize;
+                let mut page_num = 1_u32;
                 let mut validators = Vec::new();
                 let per_page = DEFAULT_VALIDATORS_PER_PAGE.into();
                 loop {

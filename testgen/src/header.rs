@@ -33,7 +33,7 @@ pub struct Header {
     #[serde(serialize_with = "serialize_time")]
     pub time: Option<Time>,
     #[options(help = "proposer index (default: 0)")]
-    pub proposer: Option<usize>,
+    pub proposer: Option<u32>,
     #[options(help = "last block id hash (default: Hash::None)")]
     pub last_block_id_hash: Option<Hash>,
 }
@@ -85,7 +85,7 @@ impl Header {
     set_option!(chain_id, &str, Some(chain_id.to_string()));
     set_option!(height, u64);
     set_option!(time, Time);
-    set_option!(proposer, usize);
+    set_option!(proposer, u32);
     set_option!(last_block_id_hash, Hash);
 
     pub fn next(&self) -> Self {

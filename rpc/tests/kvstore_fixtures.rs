@@ -492,7 +492,7 @@ fn incoming_fixtures() {
             },
             "block_search" => {
                 let result = endpoint::block_search::Response::from_string(content).unwrap();
-                assert_eq!(result.total_count as usize, result.blocks.len());
+                assert_eq!(result.total_count as u32, result.blocks.len());
                 for response in result.blocks {
                     assert!(response.block.header.height.value() > 1);
                 }
@@ -1386,7 +1386,7 @@ fn incoming_fixtures() {
             },
             "tx_search_no_prove" => {
                 let result = endpoint::tx_search::Response::from_string(content).unwrap();
-                assert_eq!(result.total_count as usize, result.txs.len());
+                assert_eq!(result.total_count as u32, result.txs.len());
                 // Test a few selected attributes of the results.
                 for tx in result.txs {
                     assert_ne!(tx.hash.as_bytes(), [0; 32]);
@@ -1402,7 +1402,7 @@ fn incoming_fixtures() {
             },
             "tx_search_with_prove" => {
                 let result = endpoint::tx_search::Response::from_string(content).unwrap();
-                assert_eq!(result.total_count as usize, result.txs.len());
+                assert_eq!(result.total_count as u32, result.txs.len());
                 // Test a few selected attributes of the results.
                 for tx in result.txs {
                     assert_ne!(tx.hash.as_bytes(), [0; 32]);

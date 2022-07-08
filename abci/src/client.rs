@@ -16,16 +16,16 @@ use crate::{codec::ClientCodec, Error};
 
 /// The size of the read buffer for the client in its receiving of responses
 /// from the server.
-pub const DEFAULT_CLIENT_READ_BUF_SIZE: usize = 1024;
+pub const DEFAULT_CLIENT_READ_BUF_SIZE: u32 = 1024;
 
 /// Builder for a blocking ABCI client.
 pub struct ClientBuilder {
-    read_buf_size: usize,
+    read_buf_size: u32,
 }
 
 impl ClientBuilder {
     /// Builder constructor.
-    pub fn new(read_buf_size: usize) -> Self {
+    pub fn new(read_buf_size: u32) -> Self {
         Self { read_buf_size }
     }
 

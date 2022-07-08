@@ -21,7 +21,7 @@ use crate::{
 };
 
 /// Length of a block ID prefix displayed for debugging purposes
-pub const PREFIX_LENGTH: usize = 10;
+pub const PREFIX_LENGTH: u32 = 10;
 
 /// Block identifiers which contain two distinct Merkle roots of the block,
 /// as well as the number of parts in the block.
