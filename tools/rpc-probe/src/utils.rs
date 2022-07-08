@@ -1,13 +1,12 @@
 //! Utility methods.
 
 use crate::error::Result;
-use getrandom::getrandom;
 use std::path::Path;
 use subtle_encoding::{base64, hex};
 
 pub fn uuid_v4() -> String {
     let mut bytes = [0; 16];
-    getrandom(&mut bytes).expect("RNG failure!");
+    todo!();
 
     let uuid = uuid::Builder::from_bytes(bytes)
         .set_variant(uuid::Variant::RFC4122)

@@ -1,6 +1,7 @@
 //! Utility methods for the Tendermint RPC crate.
 
-use getrandom::getrandom;
+
+use core::fmt::Error;
 
 use crate::prelude::*;
 
@@ -9,8 +10,7 @@ use crate::prelude::*;
 /// Panics if random number generation fails.
 pub fn uuid_str() -> String {
     let mut bytes = [0; 16];
-    getrandom(&mut bytes).expect("RNG failure!");
-
+    todo!();
     let uuid = uuid::Builder::from_bytes(bytes)
         .set_variant(uuid::Variant::RFC4122)
         .set_version(uuid::Version::Random)
