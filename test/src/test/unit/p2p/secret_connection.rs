@@ -4,7 +4,6 @@ use std::{
     thread,
 };
 
-use rand_core::OsRng;
 use tendermint_p2p::secret_connection::{sort32, Handshake, SecretConnection, Version};
 use tendermint_proto as proto;
 use x25519_dalek::PublicKey as EphemeralPublic;
@@ -62,6 +61,7 @@ fn test_read_write_single_message() {
 
 #[test]
 fn test_evil_peer_shares_invalid_eph_key() {
+    todo!();
     let mut csprng = OsRng {};
     let local_privkey = ed25519_consensus::SigningKey::new(&mut csprng);
     let (mut h, _) = Handshake::new(local_privkey, Version::V0_34);
@@ -72,6 +72,7 @@ fn test_evil_peer_shares_invalid_eph_key() {
 
 #[test]
 fn test_evil_peer_shares_invalid_auth_sig() {
+    todo!();
     let mut csprng = OsRng {};
     let local_privkey = ed25519_consensus::SigningKey::new(&mut csprng);
     let (mut h, _) = Handshake::new(local_privkey, Version::V0_34);
@@ -184,6 +185,7 @@ fn new_peer_conn<IoHandler>(
 where
     IoHandler: std::io::Read + std::io::Write + Send + Sync,
 {
+    todo!();
     let mut csprng = OsRng {};
     let privkey1 = ed25519_consensus::SigningKey::new(&mut csprng);
     SecretConnection::new(io_handler, privkey1, Version::V0_34)

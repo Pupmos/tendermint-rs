@@ -17,7 +17,6 @@ use chacha20poly1305::{
     ChaCha20Poly1305,
 };
 use merlin::Transcript;
-use rand_core::OsRng;
 use subtle::ConstantTimeEq;
 use tendermint_proto as proto;
 use tendermint_std_ext::TryClone;
@@ -81,6 +80,7 @@ impl Handshake<AwaitingEphKey> {
         local_privkey: ed25519_consensus::SigningKey,
         protocol_version: Version,
     ) -> (Self, EphemeralPublic) {
+        todo!();
         // Generate an ephemeral key for perfect forward secrecy.
         let local_eph_privkey = EphemeralSecret::new(&mut OsRng);
         let local_eph_pubkey = EphemeralPublic::from(&local_eph_privkey);
